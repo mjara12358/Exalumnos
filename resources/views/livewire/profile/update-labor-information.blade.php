@@ -32,11 +32,11 @@
         <!-- Pais de la Empresa-->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="paisempresa" value="{{ __('Pais de la Empresa') }}" />
-            <select id="paisempresa" wire:model="state.paisempresa" wire:change='getStates()'
+            <select id="paisempresa" wire:model="state.paisempresa" wire:change='getStatesByCountry($event.target.value)'
                 class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                 <option value="">{{ __('Seleccione el Pais') }}</option>
                 @foreach ($countries as $country)
-                    <option value="{{ $country['country_name'] }}">{{ $country['country_name'] }}</option>
+                    <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
                 @endforeach
             </select>
             <x-input-error for="paisempresa" class="mt-2" />
@@ -45,11 +45,11 @@
         <!-- Departamento de la Empresa-->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="departamentoempresa" value="{{ __('Departamento de la Empresa') }}" />
-            <select id="departamentoempresa" wire:model="state.departamentoempresa" wire:change='getCities()'
+            <select id="departamentoempresa" wire:model="state.departamentoempresa" wire:change='getCitiesByState($event.target.value)'
                 class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                 <option value="">{{ __('Seleccione el Departamento') }}</option>
                 @foreach ($states as $state)
-                    <option value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
+                    <option value="{{ $state['name'] }}">{{ $state['name'] }}</option>
                 @endforeach
             </select>
             <x-input-error for="departamentoempresa" class="mt-2" />
@@ -62,7 +62,7 @@
                 class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                 <option value="">{{ __('Seleccione la Ciudad') }}</option>
                 @foreach ($cities as $city)
-                    <option value="{{ $city['city_name'] }}">{{ $city['city_name'] }}</option>
+                    <option value="{{ $city }}">{{ $city }}</option>
                 @endforeach
             </select>
             <x-input-error for="ciudadempresa" class="mt-2" />

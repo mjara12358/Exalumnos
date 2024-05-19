@@ -14,7 +14,7 @@
                     <script type="text/javascript">
                         google.charts.load('current', {
                             'packages': ['map'],
-                            'mapsApiKey': 'AIzaSyBvrQwMO1wOGDGLIqMhE7_UYsWtRsQba34'
+                            'mapsApiKey': '{{config('app.googleMaps_api_key')}}'
                         });
                     
                         // Retrasar la carga del gráfico por 2 segundos
@@ -471,7 +471,7 @@
                                 <style>
                                     /* Establece el color del texto dentro del chart_div en negro */
                                     #chart_div {
-                                        color: #c0c0c0;
+                                        color: #000000;
                                     }
                                 </style>
                                 <div id="chart_div" class="sm:rounded-lg relative" style="min-height: 400px;">

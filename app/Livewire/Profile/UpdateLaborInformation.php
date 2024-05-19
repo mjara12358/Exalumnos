@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
+use Psy\Readline\Hoa\Console;
 
 class UpdateLaborInformation extends Component
 {
@@ -14,6 +15,7 @@ class UpdateLaborInformation extends Component
     public $countries;
     public $states;
     public $cities;
+    public $countrySelect;
 
     public $state = [
         'empleado' => '',
@@ -32,6 +34,57 @@ class UpdateLaborInformation extends Component
         'habilidades' => '',
     ];
 
+    public function AllCountries()
+    {
+        try {
+            $response = Http::get('https://countriesnow.space/api/v0.1/countries/positions');
+            
+            return $response->json();
+        } catch (\Exception $ex) {
+            // Manejar la excepción, por ejemplo, devolver un mensaje de error o registrarla en el registro de errores
+            return $ex->getMessage();
+        }
+    }
+
+    public function getStatesByCountry($country)
+    {
+        try {
+            if (empty($country)) {
+                $this->states = [];
+                $this->cities = [];
+            } else {
+                $response = Http::post('https://countriesnow.space/api/v0.1/countries/states', [
+                    'country' => $country
+                ]);
+
+                $this->countrySelect = $country;
+                $this->states = $response->json()['data']['states']; // Suponiendo que la respuesta contiene una clave 'data' con la lista de estados
+            }
+        } catch (\Exception $ex) {
+            // Manejar la excepción, por ejemplo, devolver un mensaje de error o registrarla en el registro de errores
+            return $ex->getMessage();
+        }
+    }
+
+    public function getCitiesByState($state)
+    {
+        try {
+            if (empty($state)) {
+                $this->cities = [];
+            } else {
+                $response = Http::post('https://countriesnow.space/api/v0.1/countries/state/cities', [
+                    'country' => $this->countrySelect,
+                    'state' => $state
+                ]);
+
+                $this->cities = $response->json()['data']; // Suponiendo que la respuesta contiene una clave 'data' con la lista de ciudades
+            }
+        } catch (\Exception $ex) {
+            // Manejar la excepción, por ejemplo, devolver un mensaje de error o registrarla en el registro de errores
+            return $ex->getMessage();
+        }
+    }
+
     public function render()
     {
         $this->user = Auth::user();
@@ -40,19 +93,8 @@ class UpdateLaborInformation extends Component
 
     public function mount()
     {
-        $response = Http::withHeaders([
-            "Accept" => "application/json",
-            "api-token" => "s4EP2smx8Rl4cC5tT2iH_cgzA1Q7P-BhwZpZB7GhaTIJD0AhCdLIRIYIFaOGQ8Pmtjc",
-            "user-email" => "hawefo9797@funvane.com"
-        ])->get('https://www.universal-tutorial.com/api/getaccesstoken');
-
-        $this->token = $response->json('auth_token');
-
-        $countries = Http::withHeaders([
-            "Authorization" => "Bearer ". $this->token,
-            "Accept" => "application/json"
-        ])->get('https://www.universal-tutorial.com/api/countries/'); 
-        $this->countries = $countries->json();
+        $response = $this->AllCountries();
+        $this->countries = $response['data'];
         
         $user = Auth::user(); // Suponiendo que estás utilizando Laravel Jetstream
         $this->state['empleado'] = $user->empleado;
@@ -73,33 +115,14 @@ class UpdateLaborInformation extends Component
         $this->states = [];
         $this->cities = [];
         if (!empty($this->state['paisempresa'])) {
-            $this->getStates();
+            $this->getStatesByCountry($this->state['paisempresa']);
         }
 
         if (!empty($this->state['departamentoempresa'])) {
-            $this->getCities();
+            $this->countrySelect = $this->state['paisempresa'];
+            $this->getCitiesByState($this->state['departamentoempresa']);
         }
         
-    }
-
-    public function getStates(){
-        if (!empty($this->state['paisempresa'])) {
-            $states = Http::withHeaders([
-                "Authorization" => "Bearer ". $this->token,
-                "Accept" => "application/json"
-            ])->get('https://www.universal-tutorial.com/api/states/'. $this->state['paisempresa']); 
-            $this->states = $states->json();
-        }
-    }
-
-    public function getCities(){
-        if (!empty($this->state['departamentoempresa'])) {
-            $cities = Http::withHeaders([
-                "Authorization" => "Bearer ". $this->token,
-                "Accept" => "application/json"
-            ])->get('https://www.universal-tutorial.com/api/cities/'. $this->state['departamentoempresa']); 
-            $this->cities = $cities->json();
-        }
     }
 
     public function updateLaborInformation(): void

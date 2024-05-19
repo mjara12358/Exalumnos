@@ -19,8 +19,11 @@ class ExalumnosController extends Controller
         $roles = Role::all();
 
         $user = Auth::user();
-
-        return view('exalumnos.exalumnos', compact('users', 'roles', 'exAlumnos'));
+        if($user->hasRole('Super Admin|Lider de Egresados|Director de Programa|Docente')){
+            return view('exalumnos.exalumnos', compact('users', 'roles', 'exAlumnos'));
+        }else{
+            return redirect()->route('dashboard');
+        }
     }
 
     /**

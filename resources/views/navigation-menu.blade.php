@@ -44,9 +44,6 @@
                         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('exalumnos.index') }}" :active="request()->routeIs('exalumnos.index')">
-                            {{ __('Exalumnos') }}
-                        </x-nav-link>
                     @endrole
                 </div>
                 <div class="col-span-1 px-6 flex items-center justify-center sm:justify-center ">
