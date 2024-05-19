@@ -19,7 +19,7 @@ class RolesController extends Controller
 
         $user = Auth::user();
         if($user->hasRole('Super Admin|Lider de Egresados')){
-            return view('Seguridad.roles', compact('roles', 'permisos'));
+            return view('seguridad.roles', compact('roles', 'permisos'));
         }else{
             return redirect()->route('dashboard');
         }
