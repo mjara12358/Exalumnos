@@ -14,39 +14,39 @@
                     <script type="text/javascript">
                         google.charts.load('current', {
                             'packages': ['map'],
-                            'mapsApiKey': '{{config('app.googleMaps_api_key')}}'
+                            'mapsApiKey': '{{ config('app.googleMaps_api_key') }}'
                         });
-                    
+
                         // Retrasar la carga del gráfico por 2 segundos
                         setTimeout(function() {
                             google.charts.setOnLoadCallback(drawMap);
                         }, 1000);
-                    
+
                         function drawMap() {
                             var data = google.visualization.arrayToDataTable([
                                 ['Ubicacion', 'Exalumno'],
                                 @foreach ($exAlumnos as $user)
                                     ['{{ $user->paisempresa }}-{{ $user->departamentoempresa }}-{{ $user->ciudadempresa }}',
-                                        'Exalumno: {{ $user->name }}'
+                                        'Exalumno: {{ $user->name }} {{ $user->apellido }}'
                                     ],
                                 @endforeach
                             ]);
-                    
+
                             var options = {
                                 showTooltip: true,
                                 showInfoWindow: true,
                                 useMapTypeControl: true
                             };
-                    
+
                             var map = new google.visualization.Map(document.getElementById('chart_div'));
-                    
+
                             map.draw(data, options);
-                    
+
                             // Ocultar el spinner después de que se cargue el gráfico
                             document.querySelector('#chart_div > div[role="status"]').style.display = 'none';
                         };
                     </script>
-                    
+
                     <script type="text/javascript">
                         google.charts.load("current", {
                             packages: ["corechart"]
@@ -594,31 +594,146 @@
                         </div>
 
                         <div>
-                            <div class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4" id="exalumnos">
+                            <div class="mt-4 mb-4 flex flex-wrap " id="exalumnos" style="display: none;">
                                 @foreach ($exAlumnos as $exAlumno)
-                                    <div
-                                        class="mt-2 max-w-md bg-gray-600 bg-opacity-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                        <div class="flex flex-col items-center pb-10">
-                                            <img class="w-24 h-24 mt-6 mb-3 rounded-full shadow-lg"
-                                                src="{{ $exAlumno->profile_photo_url }}" alt="Bonnie image" />
-                                            <div class="p-2 text-center">
-                                                <h5
-                                                    class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">
-                                                    {{ $exAlumno->name }} {{ $exAlumno->apellido }}</h5>
-                                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                                    {{ __('Habilidades: ') }}
-                                                    {{ $exAlumno->habilidades }}</p>
-                                                <div class="flex mt-4 md:mt-6 justify-center">
-                                                    <a data-modal-target="ver-modal" data-modal-toggle="ver-modal"
-                                                        onclick="verExalumno({{ json_encode($exAlumno) }})"
-                                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ __('Contacto') }}</a>
-                                                </div>
+                                    <div class="w-full bg-gray-600 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                        <div class="flex items-center p-4">
+                                            <img class="w-12 h-12 rounded-full shadow-lg" src="{{ $exAlumno->profile_photo_url }}" alt="Profile image" />
+                                            <div
+                                                    class="ml-3 mr-4 inline-block w-0.5 self-stretch bg-neutral-100 dark:bg-white/10"></div>
+                                            <p class="text-2xl font-bold tracking-tight text-white dark:text-white">
+                                                {{ $exAlumno->name }} {{ $exAlumno->apellido }}
+                                            </p>
+                                            <p class="ml-4 font-normal text-1xl text-gray-300 dark:text-gray-400">
+                                                {{ __('Cargo: ') }} {{ $exAlumno->cargo }} {{ __(' - Habilidades: ') }} {{ $exAlumno->habilidades }}
+                                            </p>
+                                            <div class="flex justify-start ml-4 ml-auto">
+                                                <div
+                                                    class="mr-4 inline-block w-0.5 self-stretch bg-neutral-100 dark:bg-white/10"></div>
+                                                <a data-modal-target="ver-modal" data-modal-toggle="ver-modal"
+                                                onclick="verExalumno({{ json_encode($exAlumno) }})"
+                                                class="inline-flex items-center px-6 py-4 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    {{ __('Contacto') }}
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
+
+
+                        <div>
+                            <div class="mb-2 mt-4">
+                                <section
+                                    class="bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply sm:rounded-lg"
+                                    style="background-image: url('/storage/images/redFondo.png'); max-height: 500px;">
+
+                                    <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-10"
+                                        style="max-height: 500px;">
+                                        <h1
+                                            class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
+                                            Red de Contactos</h1>
+
+                                        <div class="mt-4 mb-4 grid grid-cols-2 md:grid-cols-2 gap-4">
+                                            <div class="grid gap-4">
+                                                <p
+                                                    class="mb-8 mt-12 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-12">
+                                                    {{ __('¡Únete a nuestra vibrante comunidad de exalumnos universitarios! Aquí, priorizamos la conexión y colaboración entre miembros para proyectos innovadores, ideas de emprendimiento, consultas académicas y más. Sé parte de una red de contactos en constante crecimiento, donde las experiencias compartidas y el apoyo mutuo son el corazón de nuestra comunidad.') }}
+                                                </p>
+                                            </div>
+                                            <div class="grid gap-4">
+
+                                                <div id="default-carousel" class="relative w-full"
+                                                    data-carousel="slide">
+                                                    <!-- Carousel wrapper -->
+                                                    <div
+                                                        class="relative h-56 overflow-hidden rounded-lg md:h-96 flex justify-center items-center">
+                                                        <!-- Item 1 -->
+
+                                                        @foreach ($exAlumnos as $exAlumno)
+                                                            <div class="hidden duration-700 ease-in-out flex justify-center items-center"
+                                                                data-carousel-item data-name="{{ $exAlumno->name }}"
+                                                                data-surname="{{ $exAlumno->apellido }}"
+                                                                data-skills="{{ $exAlumno->habilidades }}">
+                                                                <div
+                                                                    class="mt-2 mb-8 min-w-[400px] bg-gray-600 bg-opacity-75 border border-gray-200 rounded-lg shadow dark:bg-gray-600 dark:bg-opacity-75 dark:border-gray-400">
+                                                                    <div class="flex flex-col items-center pb-10">
+                                                                        <img class="w-24 h-24 mt-8 mb-3 rounded-full shadow-lg"
+                                                                            src="{{ $exAlumno->profile_photo_url }}"
+                                                                            alt="Bonnie image" />
+                                                                        <div class="p-2 text-center">
+                                                                            <h5
+                                                                                class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">
+                                                                                {{ $exAlumno->name }}
+                                                                                {{ $exAlumno->apellido }}</h5>
+                                                                            <p
+                                                                                class="mb-3 font-normal text-gray-300 dark:text-gray-400">
+                                                                                {{ __('Habilidades: ') }}
+                                                                                {{ $exAlumno->habilidades }}</p>
+                                                                            <div class="flex md:mt-6 justify-center">
+                                                                                <a data-modal-target="ver-modal"
+                                                                                    data-modal-toggle="ver-modal"
+                                                                                    onclick="verExalumno({{ json_encode($exAlumno) }})"
+                                                                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ __('Contacto') }}</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!-- Slider indicators -->
+                                                    <div
+                                                        class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                                                        @foreach ($exAlumnos as $index => $exAlumno)
+                                                            <button type="button" class="w-3 h-3 rounded-full"
+                                                                aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                                                                aria-label="Slide {{ $index + 1 }}"
+                                                                data-carousel-slide-to="{{ $index }}"></button>
+                                                        @endforeach
+                                                    </div>
+                                                    <!-- Slider controls -->
+                                                    <button type="button"
+                                                        class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                                        data-carousel-prev>
+                                                        <span
+                                                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-/30 group-hover:bg-white/50 dark:group-hover:bg-gray-/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-/70 group-focus:outline-none">
+                                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="none" viewBox="0 0 6 10">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M5 1 1 5l4 4" />
+                                                            </svg>
+                                                            <span class="sr-only">Previous</span>
+                                                        </span>
+                                                    </button>
+                                                    <button type="button"
+                                                        class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                                        data-carousel-next>
+                                                        <span
+                                                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-/30 group-hover:bg-white/50 dark:group-hover:bg-gray-/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-/70 group-focus:outline-none">
+                                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="none" viewBox="0 0 6 10">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="m1 9 4-4-4-4" />
+                                                            </svg>
+                                                            <span class="sr-only">Next</span>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -813,7 +928,7 @@
         const searchInput = document.getElementById('search');
 
         // Obtener todas las tarjetas de exalumnos
-        const exAlumnos = document.querySelectorAll('#exalumnos .max-w-md');
+        const exAlumnos = document.querySelectorAll('#exalumnos .w-full');
 
         // Agregar evento de escucha al campo de entrada de búsqueda
         searchInput.addEventListener('input', function() {
@@ -822,7 +937,7 @@
             // Iterar sobre todas las tarjetas de exalumnos
             exAlumnos.forEach(function(exAlumno) {
                 const nombre = exAlumno.querySelector('.text-white').textContent.toLowerCase();
-                const habilidades = exAlumno.querySelector('.text-gray-700').textContent.toLowerCase();
+                const habilidades = exAlumno.querySelector('.text-gray-300').textContent.toLowerCase();
 
                 // Mostrar u ocultar la tarjeta de exalumno según si el término de búsqueda coincide con el nombre o las habilidades
                 if (nombre.includes(searchTerm) || habilidades.includes(searchTerm)) {
@@ -831,6 +946,15 @@
                     exAlumno.style.display = 'none';
                 }
             });
+        });
+
+        document.getElementById('search').addEventListener('input', function() {
+            const exalumnosDiv = document.getElementById('exalumnos');
+            if (this.value.trim() === '') {
+                exalumnosDiv.style.display = 'none';
+            } else {
+                exalumnosDiv.style.display = 'grid';
+            }
         });
 
         function verExalumno(user) {
