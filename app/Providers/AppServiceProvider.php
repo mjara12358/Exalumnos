@@ -26,6 +26,4 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
     }
-
-    // njnkjbhvkgvk
 }
