@@ -281,7 +281,7 @@
         <div class="login">
             <div class="mb-4 user-profile">
                 <div class="logo">
-                    <img src="storage/images/logo.png">
+                    <img src="/storage/images/logo.png">
                 </div>
             </div>
 

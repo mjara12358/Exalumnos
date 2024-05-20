@@ -2,7 +2,7 @@
     style="height: 200px;">
     <div class="max-w-6xl mx-auto mt-14 flex items-center">
         <div class="mr-10">
-            <img src="storage/images/logo.png" class="h-20" alt="Logo">
+            <img src="/storage/images/logo.png" class="h-20" alt="Logo">
         </div>
         <div>
             <h2 class="text-lg font-bold text-white dark:text-gray-100">Desarrollado Por</h2>

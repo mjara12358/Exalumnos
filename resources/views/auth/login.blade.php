@@ -267,7 +267,7 @@
         <div class="login">
             <div class="user-profile">
                 <div class="logo">
-                    <img src="storage/images/logo.png">
+                    <img src="/storage/images/logo.png">
                 </div>
             </div>
             
