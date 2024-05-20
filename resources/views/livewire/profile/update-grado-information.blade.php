@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="form" enctype="multipart/form-data">
-
+        @csrf
         <!-- Numero de programa -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="numeroprograma" value="{{ __('Número de programa') }}" />
