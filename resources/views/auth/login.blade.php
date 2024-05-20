@@ -267,7 +267,7 @@
         <div class="login">
             <div class="user-profile">
                 <div class="logo">
-                    <img src="https://127.0.0.1:8000/storage/images/logo.png">
+                    <img src="http://127.0.0.1:8000/storage/images/logo.png">
                 </div>
             </div>
             
