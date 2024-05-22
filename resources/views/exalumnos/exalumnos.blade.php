@@ -385,7 +385,6 @@
             </div>
         </div>
     </div>
-    <x-banner-end></x-banner-end>
 
     <script>
         document.getElementById('buscar').addEventListener('input', function() {

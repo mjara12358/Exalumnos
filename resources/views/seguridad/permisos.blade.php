@@ -219,7 +219,6 @@
             </div>
         </div>
     </div>
-    <x-banner-end></x-banner-end>
     <script>
         function eliminar(id) {
             document.getElementById('delete-form').action = '/permisos/' + id;

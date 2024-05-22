@@ -419,7 +419,7 @@
                     </script>
                 </head>
                 <div
-                    class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-800 dark:border-gray-700">
+                    class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-300 dark:border-gray-700">
 
                     <div class="grid grid-cols-1 divide-y divide-gray-900 dark:divide-gray-200">
                         <div>
@@ -464,10 +464,11 @@
                                 </div>
                             </div>
                         </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white"></h3>
                         <div>
                             <!-- Pricing Card -->
                             <div
-                                class="mt-4 mb-4 flex flex-col p-6 mx-auto text-gray-900 bg-gray-600 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 xl:p-6 dark:bg-gray-800 dark:text-white">
+                                class="mt-4 flex flex-col p-6 mx-auto text-gray-900 bg-gray-600 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 xl:p-6 dark:bg-gray-800 dark:text-white">
                                 <style>
                                     /* Establece el color del texto dentro del chart_div en negro */
                                     #chart_div {
@@ -492,7 +493,47 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <hr class="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+                            <div class="flex items-center mb-3.5">
+
+                                <svg class="ml-2 h-10 w-10 text-gray-900 dark:text-gray-200" width="24"
+                                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" />
+                                    <path
+                                        d="M10 3.2a9 9 0 1 0 10.8 10.8a1 1 0 0 0 -1 -1h-6.8a2 2 0 0 1 -2 -2v-7a.9 .9 0 0 0 -1 -.8" />
+                                    <path d="M15 3.5a9 9 0 0 1 5.5 5.5h-4.5a1 1 0 0 1 -1 -1v-4.5" />
+                                </svg>
+
+                                <div class="flex items-center">
+                                    <h4
+                                        class="ml-4 mr-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                        {{ __('Estadisticas') }}</h4>
+                                    <svg data-popover-target="chart-info-estadisticas" data-popover-placement="bottom"
+                                        class="w-6 h-6 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
+                                    </svg>
+                                    <div data-popover id="chart-info-estadisticas" role="tooltip"
+                                        class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+                                        <div class="p-3 space-y-2">
+                                            <h3 class="font-semibold text-gray-900 dark:text-white">
+                                                {{ __('Estadisticas') }}</h3>
+                                            <p>{{ __('Aquí encontrarás una variedad de estadísticas que te brindarán una visión completa del panorama laboral de nuestros graduados. Desde la distribución de género hasta el estado laboral por año, pasando por modalidades de trabajo, intervalos de salario, tipos de contrato y jornadas laborales. Explora y descubre insights valiosos sobre la trayectoria profesional de nuestros exalumnos.') }}
+                                            </p>
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 9 4-4-4-4" />
+                                            </svg></a>
+                                        </div>
+                                        <div data-popper-arrow></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div>
                             <div class="mt-4 mb-4 grid grid-cols-2 md:grid-cols-2 gap-4">
                                 <div class="grid gap-4">
@@ -596,23 +637,28 @@
                         <div>
                             <div class="mt-4 mb-4 flex flex-wrap " id="exalumnos" style="display: none;">
                                 @foreach ($exAlumnos as $exAlumno)
-                                    <div class="w-full bg-gray-600 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <div
+                                        class="w-full bg-gray-600 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                         <div class="flex items-center p-4">
-                                            <img class="w-12 h-12 rounded-full shadow-lg" src="{{ $exAlumno->profile_photo_url }}" alt="Profile image" />
+                                            <img class="w-12 h-12 rounded-full shadow-lg"
+                                                src="{{ $exAlumno->profile_photo_url }}" alt="Profile image" />
                                             <div
-                                                    class="ml-3 mr-4 inline-block w-0.5 self-stretch bg-neutral-100 dark:bg-white/10"></div>
+                                                class="ml-3 mr-4 inline-block w-0.5 self-stretch bg-neutral-100 dark:bg-white/10">
+                                            </div>
                                             <p class="text-2xl font-bold tracking-tight text-white dark:text-white">
                                                 {{ $exAlumno->name }} {{ $exAlumno->apellido }}
                                             </p>
                                             <p class="ml-4 font-normal text-1xl text-gray-300 dark:text-gray-400">
-                                                {{ __('Cargo: ') }} {{ $exAlumno->cargo }} {{ __(' - Habilidades: ') }} {{ $exAlumno->habilidades }}
+                                                {{ __('Cargo: ') }} {{ $exAlumno->cargo }}
+                                                {{ __(' - Habilidades: ') }} {{ $exAlumno->habilidades }}
                                             </p>
                                             <div class="flex justify-start ml-4 ml-auto">
                                                 <div
-                                                    class="mr-4 inline-block w-0.5 self-stretch bg-neutral-100 dark:bg-white/10"></div>
+                                                    class="mr-4 inline-block w-0.5 self-stretch bg-neutral-100 dark:bg-white/10">
+                                                </div>
                                                 <a data-modal-target="ver-modal" data-modal-toggle="ver-modal"
-                                                onclick="verExalumno({{ json_encode($exAlumno) }})"
-                                                class="inline-flex items-center px-6 py-4 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    onclick="verExalumno({{ json_encode($exAlumno) }})"
+                                                    class="inline-flex items-center px-6 py-4 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                     {{ __('Contacto') }}
                                                 </a>
                                             </div>
@@ -922,7 +968,6 @@
             </div>
         </div>
     </div>
-    <x-banner-end></x-banner-end>
     <script>
         // Obtener el campo de entrada de búsqueda
         const searchInput = document.getElementById('search');

@@ -60,6 +60,5 @@
             @endif
         </div>
     </div>
-    <x-banner-end></x-banner-end>
 
 </x-app-layout>
