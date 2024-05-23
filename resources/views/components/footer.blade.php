@@ -8,9 +8,9 @@
             <div>
                 <h2 class="text-lg font-bold text-white dark:text-gray-100">{{ __('Desarrollado Por') }}</h2>
                 <p class="text-sm text-white dark:text-gray-200">Jeeimy Pantoja | Marlon Jaramillo | Sebastian Pai |
-                    Sebastian Figueroa</p>
+                    Sebastian Figueroa | Adrian Jurado</p>
                 <p class="text-sm text-white dark:text-gray-200">jeeimyda.pantoja@umariana.edu.co |
-                    marlonfe.jaramillo@umariana.edu.co | jpai@umariana.edu.co | juafigueroa@umariana.edu.co</p>
+                    marlonfe.jaramillo@umariana.edu.co | jpai@umariana.edu.co | juafigueroa@umariana.edu.co | josead.velasquez@umariana.edu.co</p>
 
             </div>
         </div>
