@@ -10,7 +10,8 @@
                 <p class="text-sm text-white dark:text-gray-200">Jeeimy Pantoja | Marlon Jaramillo | Sebastian Pai |
                     Sebastian Figueroa | Adrian Jurado</p>
                 <p class="text-sm text-white dark:text-gray-200">jeeimyda.pantoja@umariana.edu.co |
-                    marlonfe.jaramillo@umariana.edu.co | jpai@umariana.edu.co | juafigueroa@umariana.edu.co | josead.velasquez@umariana.edu.co</p>
+                    marlonfe.jaramillo@umariana.edu.co | jpai@umariana.edu.co | </p>
+                <p class="text-sm text-white dark:text-gray-200">juafigueroa@umariana.edu.co | josead.velasquez@umariana.edu.co</p>
 
             </div>
         </div>
